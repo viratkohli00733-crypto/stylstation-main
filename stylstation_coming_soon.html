@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleStation — Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender:     #9b8ec4;
+    --lavender-deep:#6b5ea8;
+    --lavender-soft:#c5b9e8;
+    --gold:         #c9a84c;
+    --gold-light:   #e8c97a;
+    --gold-pale:    #f5e6b8;
+    --dark:         #0d0b14;
+    --dark2:        #13101f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--gold-pale);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Ambient background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(155,142,196,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 20% 0%,   rgba(201,168,76,0.06)  0%, transparent 50%),
+      radial-gradient(ellipse 50% 50% at 80% 10%,  rgba(155,142,196,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Floating particles */
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: float linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes float {
+    0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Main container */
+  .container {
+    text-align: center;
+    padding: 40px 24px;
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Logo mark */
+  .logo-mark {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 32px;
+    position: relative;
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+  }
+
+  .logo-mark svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 20px rgba(201,168,76,0.4));
+  }
+
+  /* Ornament lines */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 24px;
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+  }
+
+  .ornament-line {
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .ornament-diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px var(--gold);
+  }
+
+  /* Brand name */
+  .brand {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(36px, 10vw, 64px);
+    font-weight: 900;
+    letter-spacing: 6px;
+    line-height: 1;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, var(--gold-pale) 70%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: shimmer 4s ease infinite, fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+    filter: drop-shadow(0 0 30px rgba(201,168,76,0.3));
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+  }
+
+  .brand-dot {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(14px, 3vw, 18px);
+    letter-spacing: 8px;
+    color: var(--lavender-soft);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    font-weight: 400;
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.4s both;
+  }
+
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.5s both;
+  }
+
+  .div-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(155,142,196,0.5));
+  }
+
+  .div-line.right {
+    background: linear-gradient(90deg, rgba(155,142,196,0.5), transparent);
+  }
+
+  .div-icon {
+    color: var(--lavender);
+    font-size: 18px;
+    opacity: 0.8;
+  }
+
+  /* Coming soon text */
+  .coming-soon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(13px, 3vw, 16px);
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--lavender-soft);
+    margin-bottom: 16px;
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+  }
+
+  .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 4vw, 26px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245,230,184,0.7);
+    line-height: 1.6;
+    margin-bottom: 56px;
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.7s both;
+  }
+
+  /* Bottom ornament */
+  .bottom-ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.8s both;
+  }
+
+  .bo-line {
+    width: 40px;
+    height: 1px;
+    background: rgba(201,168,76,0.3);
+  }
+
+  .bo-text {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(201,168,76,0.4);
+    text-transform: uppercase;
+  }
+
+  /* Glow orbs */
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+
+  .orb1 {
+    width: 300px; height: 300px;
+    background: rgba(107,94,168,0.15);
+    bottom: -100px; left: -100px;
+    animation-delay: 0s;
+  }
+
+  .orb2 {
+    width: 200px; height: 200px;
+    background: rgba(201,168,76,0.08);
+    top: -60px; right: -60px;
+    animation-delay: -4s;
+  }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0); }
+    50%       { transform: translate(20px, -20px); }
+  }
+
+  /* Scissors icon SVG */
+  .scissors-wrap {
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Glow orbs -->
+<div class="glow-orb orb1"></div>
+<div class="glow-orb orb2"></div>
+
+<!-- Particles -->
+<div class="particles" id="particles"></div>
+
+<div class="container">
+
+  <!-- Logo mark -->
+  <div class="logo-mark">
+    <img src="stylestation_logo.png" alt="StyleStation" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 24px rgba(201,168,76,0.4));">
+  </div>
+
+  <!-- Ornament -->
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+
+  <!-- Brand name -->
+  <div class="brand">StyleStation</div>
+  <div class="brand-dot">Est. 2025 &nbsp;·&nbsp; Kanpur</div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="div-line"></div>
+    <div class="div-icon">✦</div>
+    <div class="div-line right"></div>
+  </div>
+
+  <!-- Coming soon -->
+  <div class="coming-soon">Coming Soon</div>
+
+  <div class="tagline">
+    Where every salon tells<br>its own story.
+  </div>
+
+  <!-- Bottom ornament -->
+  <div class="bottom-ornament">
+    <div class="bo-line"></div>
+    <div class="bo-text">stylstation.in</div>
+    <div class="bo-line"></div>
+  </div>
+
+</div>
+
+<script>
+  // Generate particles
+  const container = document.getElementById('particles');
+  const colors = ['#c9a84c','#9b8ec4','#e8c97a','#c5b9e8','#f5e6b8'];
+
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 1;
+    p.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${Math.random() * 100}%;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      animation-duration: ${Math.random() * 15 + 10}s;
+      animation-delay: ${Math.random() * 10}s;
+      opacity: 0;
+    `;
+    container.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
